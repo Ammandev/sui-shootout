@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 
 function App() {
   const { unityProvider } = useUnityContext({
-    loaderUrl: "build/TrumpRunner.loader.js",
-    dataUrl: "build/TrumpRunner.data",
-    frameworkUrl: "build/TrumpRunner.framework.js",
-    codeUrl: "build/TrumpRunner.wasm",
+    loaderUrl: "build/Webgl.loader.js",
+    dataUrl: "build/Webgl.data",
+    frameworkUrl: "build/Webgl.framework.js",
+    codeUrl: "build/Webgl.wasm",
   });
 
   const [windowDimensions, setWindowDimensions] = useState({
@@ -15,12 +15,15 @@ function App() {
     height: window.innerHeight,
   });
 
+  const [isLandscape, setIsLandscape] = useState(window.innerWidth > window.innerHeight);
+
   useEffect(() => {
     function handleResize() {
       setWindowDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
+      setIsLandscape(window.innerWidth > window.innerHeight);
     }
 
     window.addEventListener("resize", handleResize);
@@ -29,13 +32,19 @@ function App() {
 
   return (
     <div className="App">
-      <Unity
-        style={{
-          width: `${windowDimensions.width}px`,
-          height: `${windowDimensions.height}px`,
-        }}
-        unityProvider={unityProvider}
-      />
+      {!isLandscape ? (
+        <div className="rotate-message">
+          Please rotate your device to landscape mode for the best experience.
+        </div>
+      ) : (
+        <Unity
+          style={{
+            width: `${windowDimensions.width}px`,
+            height: `${windowDimensions.height}px`,
+          }}
+          unityProvider={unityProvider}
+        />
+      )}
     </div>
   );
 }
