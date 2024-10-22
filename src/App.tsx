@@ -5,10 +5,10 @@ import WebApp from '@twa-dev/sdk';
 
 function App() {
   const { unityProvider, sendMessage } = useUnityContext({
-    loaderUrl: "build/Webgl.loader.js",
-    dataUrl: "build/Webgl.data",
-    frameworkUrl: "build/Webgl.framework.js",
-    codeUrl: "build/Webgl.wasm",
+    loaderUrl: "build/Build.loader.js",
+    dataUrl: "build/Build.data",
+    frameworkUrl: "build/Build.framework.js",
+    codeUrl: "build/Build.wasm",
   });
 
   const [windowDimensions, setWindowDimensions] = useState({
